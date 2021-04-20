@@ -1,3 +1,8 @@
+
 steps:
-  - name: gcr.io/cloud-builders/gsutil
-    args: ["-m", "rsync", "-r", "-c", "-d", "./vision/explore-api", "github.com/fazilniveus/git-demo"]
+  - name: gcr.io/cloud-builders/docker
+    args: ['build', '-t', 'gcr.io/niveustrianing/fazdemo:latest', '-f', './src/Dockerfile.test', '.']
+
+# my-image is pushed to Container Registry
+images:
+- 'gcr.io/niveustrianing/fazdemo'
