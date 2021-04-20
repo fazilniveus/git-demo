@@ -1,7 +1,7 @@
 steps:
 - name: 'github.com/fazilniveus/git-demo'
   args: ['build', '-t', 'gcr.io/fazildemo', '.']
-  timeout: 5000s
+  timeout: 600s
 - name: 'github.com/fazilniveus/git-demo'
   args: ['push', 'gcr.io/fazildemo']
 - name: 'github.com/fazilniveus/git-demo'
