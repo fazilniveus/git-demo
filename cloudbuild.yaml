@@ -1,8 +1,16 @@
-
 steps:
-  - name: gcr.io/cloud-builders/docker
-    args: ['build', '-t', 'gcr.io/niveustrianing/fazdemo:latest', '-f', './src/Dockerfile.test', '.']
-
-# my-image is pushed to Container Registry
-images:
-- 'gcr.io/niveustrianing/fazdemo'
+- name: 'github.com/fazilniveus/git-demo'
+  args: ['build', '-t', 'gcr.io/fazildemo', '.']
+  timeout: 500s
+- name: 'github.com/fazilniveus/git-demo'
+  args: ['push', 'gcr.io/fazildemo']
+- name: 'github.com/fazilniveus/git-demo'
+  args: ['set', 'image', 'deployment/my-deployment', 'my-container=gcr.io/fazildemo']
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=us-east4-b'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=my-cluster'
+options:
+    machineType: 'N1_HIGHCPU_8'
+timeout: 660s
+tags: ['mytag1', 'mytag2']
+images: ['gcr.io/fazildemo']
