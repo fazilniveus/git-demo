@@ -1,31 +1,16 @@
 steps:
-- name: 'gcr.io/cloud-builders/dockers'
-  args: ['build', '-t', 'gcr.io/$PROJECT_ID/myapp:latest', '-t', 'gcr.io/$PROJECT_ID/myapp:$COMMIT_SHA', '-t', 'gcr.io/$PROJECT_ID/myapp:$BUILD_ID', '.']
-  id: 'build-image-myapp'
-  waitFor: ['-']  # The '-' indicates that this step begins immediately.
-- name: 'gcr.io/cloud-builders/dockers'
-  args: ['push', 'gcr.io/$PROJECT_ID/myapp:$COMMIT_SHA']
-  id: 'push-image-to-container-registry'
-  waitFor: ['build-image-myapp']
-- name: 'gcr.io/cloud-builders/gcloud'
-  args:
-  - 'run'
-  - 'deploy'
-  - 'myawesomeapp'
-  - '--image'
-  - 'gcr.io/$PROJECT_ID/myapp:$COMMIT_SHA'
-  - '--region'
-  - 'us-east4'
-  - '--platform'
-  - 'managed'
-  - '--allow-unauthenticated'
-  waitFor: ['push-image-to-container-registry']
-
-images:
-- 'gcr.io/$PROJECT_ID/myapp:latest'
-- 'gcr.io/$PROJECT_ID/myapp:$COMMIT_SHA'
-- 'gcr.io/$PROJECT_ID/myapp:$BUILD_ID'
-artifacts:
-  objects:
-    location: 'gs://devops-$PROJECT_ID/$BUILD_ID'
-    paths: ['artifacts.tar.gz']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/my-project/my-image', '.']
+  timeout: 500s
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/my-project/my-image']
+- name: 'gcr.io/cloud-builders/kubectl'
+  args: ['set', 'image', 'deployment/my-deployment', 'my-container=gcr.io/my-project/my-image']
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=us-east4-b'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=my-cluster'
+options:
+    machineType: 'N1_HIGHCPU_8'
+timeout: 660s
+tags: ['mytag1', 'mytag2']
+images: ['gcr.io/my-project/myimage']
