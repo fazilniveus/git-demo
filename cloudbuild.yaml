@@ -1,10 +1,10 @@
 steps:
-- name: 'gcr.io/cloud-builders/dockerfile'
+- name: 'gcr.io/niveustraining/dockerfile'
   args: ['build', '-t', 'github.com/fazilniveus/git-demo', '.']
   timeout: 500s
-- name: 'gcr.io/cloud-builders/dockerfile'
+- name: 'gcr.io/niveustraining/dockerfile'
   args: ['push', 'github.com/fazilniveus/git-demo']
-- name: 'gcr.io/cloud-builders/kubectl'
+- name: 'gcr.io/niveustraining/kubectl'
   args: ['set', 'image', 'deployment/my-deployment', 'my-container=github.com/fazilniveus/git-demo']
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=us-east4-b'
