@@ -1,10 +1,10 @@
 steps:
-- name: 'github.com/fazilniveus/git-demo'
+- name: 'https://github.com/fazilniveus/git-demo'
   args: ['build', '-t', 'gcr.io/fazildemo', '.']
   timeout: 500s
-- name: 'github.com/fazilniveus/git-demo'
+- name: 'https://github.com/fazilniveus/git-demo'
   args: ['push', 'gcr.io/fazildemo']
-- name: 'github.com/fazilniveus/git-demo'
+- name: 'https://github.com/fazilniveus/git-demo'
   args: ['set', 'image', 'deployment/my-deployment', 'my-container=gcr.io/fazildemo']
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=us-east4-b'
