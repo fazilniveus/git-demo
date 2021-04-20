@@ -1,8 +1,8 @@
 steps:
-- name: 'gcr.io/niveustraining/dockerfile'
+- name: 'gcr.io/niveustraining/'
   args: ['build', '-t', 'github.com/fazilniveus/git-demo', '.']
   timeout: 500s
-- name: 'gcr.io/niveustraining/dockerfile'
+- name: 'gcr.io/niveustraining/'
   args: ['push', 'github.com/fazilniveus/git-demo']
 - name: 'gcr.io/niveustraining/kubectl'
   args: ['set', 'image', 'deployment/my-deployment', 'my-container=github.com/fazilniveus/git-demo']
