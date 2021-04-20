@@ -1,11 +1,11 @@
 steps:
 - name: 'gcr.io/cloud-builders/dockerfile'
-  args: ['build', '-t', 'gcr.io/fazildemo/projects', '.']
+  args: ['build', '-t', 'gcr.io/fazilniveus/git-demo', '.']
   timeout: 500s
 - name: 'gcr.io/cloud-builders/dockerfile'
-  args: ['push', 'gcr.io/fazildemo/projects']
+  args: ['push', 'gcr.io/fazilniveus/git-demo']
 - name: 'gcr.io/cloud-builders/kubectl'
-  args: ['set', 'image', 'deployment/my-deployment', 'my-container=gcr.io/fazildemo/projects']
+  args: ['set', 'image', 'deployment/my-deployment', 'my-container=gcr.io/fazilniveus/git-demo']
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=us-east4-b'
   - 'CLOUDSDK_CONTAINER_CLUSTER=my-cluster'
@@ -13,4 +13,4 @@ options:
     machineType: 'N1_HIGHCPU_8'
 timeout: 660s
 tags: ['mytag1', 'mytag2']
-images: ['gcr.io/fazildemo/projects']
+images: ['gcr.io/fazilniveus/git-demo']
