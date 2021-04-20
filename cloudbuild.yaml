@@ -1,16 +1,3 @@
 steps:
-- name: 'gcr.io/niveustraining/'
-  args: ['build', '-t', 'github.com/fazilniveus/git-demo', '.']
-  timeout: 500s
-- name: 'gcr.io/niveustraining/'
-  args: ['push', 'github.com/fazilniveus/git-demo']
-- name: 'gcr.io/niveustraining/kubectl'
-  args: ['set', 'image', 'deployment/my-deployment', 'my-container=github.com/fazilniveus/git-demo']
-  env:
-  - 'CLOUDSDK_COMPUTE_ZONE=us-east4-b'
-  - 'CLOUDSDK_CONTAINER_CLUSTER=my-cluster'
-options:
-    machineType: 'N1_HIGHCPU_8'
-timeout: 660s
-tags: ['mytag1', 'mytag2']
-images: ['github.com/fazilniveus/git-demo']
+  - name: gcr.io/cloud-builders/gsutil
+    args: ["-m", "rsync", "-r", "-c", "-d", "./vision/explore-api", "gs://hello.alp.im"]
